@@ -1,0 +1,38 @@
+{
+    "stable": true,
+    "versions": {
+        "0.1.0": {
+            "manifest": {
+                "manifestVersion": 2,
+                "id": "io.ixapack.vaultwardenkc",
+                "title": "Vaultwarden KC (TEST)",
+                "author": "Ixapack IT",
+                "description": "Vaultwarden fork acul021 (PR #7419) avec support Key Connector. TEST UNIQUEMENT, ne pas utiliser la base de prod.",
+                "tagline": "Vaultwarden + Key Connector (test)",
+                "version": "0.1.0",
+                "healthCheckPath": "/alive",
+                "httpPort": 8000,
+                "addons": {
+                    "localstorage": {},
+                    "sendmail": {}
+                },
+                "memoryLimit": 268435456,
+                "minBoxVersion": "8.0.0",
+                "tags": [
+                    "password",
+                    "test"
+                ],
+                "icon": "manifest/logo.png",
+                "iconUrl": "https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/manifest/logo.png",
+                "packagerName": "Jeremie Vitet",
+                "packagerUrl": "https://github.com/vitetj/key-connector",
+                "website": "https://github.com/acul021/vaultwarden",
+                "changelog": "* 0.1.0 : premier packaging de test",
+                "dockerImage": "ghcr.io/vitetj/vaultwarden-kc:0.1.0"
+            },
+            "creationDate": "Tue, 03 Nov 2026 18:46:12 GMT",
+            "ts": "Tue, 03 Nov 2026 18:46:12 GMT",
+            "publishState": "published"
+        }
+    }
+}

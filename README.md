@@ -16,20 +16,33 @@
 4. API permissions déléguées : `openid`, `email`, `profile`, `offline_access` + consentement admin.
 5. Restreindre l'accès au groupe pilote (Enterprise app → *Assignment required* = Oui) + MFA / accès conditionnel.
 
-## 2. Build & install (poste avec Cloudron CLI + Docker)
+## 2. Installation (sans build)
+Les images sont construites par GitHub Actions à chaque push sur `main` et publiées sur `ghcr.io/vitetj/key-connector`
+et `ghcr.io/vitetj/vaultwarden-kc`. Dans le Cloudron de test : **App Store → Community apps → Add**, puis coller :
+
+```
+https://raw.githubusercontent.com/vitetj/key-connector/main/CloudronVersions.json
+```
+```
+https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/CloudronVersions.json
+```
+
+Installer ensuite les deux apps depuis l'App Store (par ex. `keyconnector-test` et `vaultkc`).
+Les deux apps démarrent puis s'arrêtent volontairement (garde-fou `CHANGEME`) : c'est normal.
+
+Pour sortir une nouvelle version : bumper `version` dans le `CloudronManifest.json` concerné et dans son
+`CloudronVersions.json` (nouvelle entrée avec `dockerImage` sur le nouveau tag), puis pousser sur `main`.
+
+<details><summary>Build manuel (optionnel, Cloudron CLI + Docker)</summary>
+
 ```bash
 npm install -g cloudron
 cloudron login my.ixapack.io
-
-git clone https://github.com/vitetj/key-connector.git && cd key-connector
-cloudron build --repository registry.ixapack.io/ixapack/key-connector
-cloudron install --location keyconnector-test
-
+cloudron build --repository registry.ixapack.io/ixapack/key-connector && cloudron install --location keyconnector-test
 cd vaultwarden-kc
-cloudron build --repository registry.ixapack.io/ixapack/vaultwarden-kc
-cloudron install --location vaultkc
+cloudron build --repository registry.ixapack.io/ixapack/vaultwarden-kc && cloudron install --location vaultkc
 ```
-Les deux apps démarrent puis s'arrêtent volontairement (garde-fou `CHANGEME`) : c'est normal.
+</details>
 
 ## 3. Configuration
 **Vaultwarden KC** — éditer `/app/data/env` (File manager ou Terminal de l'app) :

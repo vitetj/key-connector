@@ -13,5 +13,14 @@
   },
   "memoryLimit": 134217728,
   "minBoxVersion": "8.0.0",
-  "tags": ["security", "test"]
+  "tags": [
+    "security",
+    "test"
+  ],
+  "icon": "manifest/logo.png",
+  "iconUrl": "https://raw.githubusercontent.com/vitetj/key-connector/main/manifest/logo.png",
+  "packagerName": "Jeremie Vitet",
+  "packagerUrl": "https://github.com/vitetj/key-connector",
+  "website": "https://github.com/acul021/key-connector",
+  "changelog": "* 0.1.0 : premier packaging de test"
 }
