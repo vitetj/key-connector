@@ -13,7 +13,7 @@
     "sendmail": {}
   },
   "memoryLimit": 268435456,
-  "minBoxVersion": "8.0.0",
+  "minBoxVersion": "9.1.0",
   "tags": [
     "password",
     "test"

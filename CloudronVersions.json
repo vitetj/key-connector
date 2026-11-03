@@ -16,7 +16,7 @@
                     "localstorage": {}
                 },
                 "memoryLimit": 134217728,
-                "minBoxVersion": "8.0.0",
+                "minBoxVersion": "9.1.0",
                 "tags": [
                     "security",
                     "test"
