@@ -1,0 +1,17 @@
+{
+  "manifestVersion": 2,
+  "id": "io.ixapack.keyconnector",
+  "title": "Key Connector (TEST)",
+  "author": "Ixapack IT",
+  "description": "Key Connector communautaire (acul021) pour Vaultwarden. TEST UNIQUEMENT.",
+  "tagline": "Key Connector Vaultwarden (test)",
+  "version": "0.1.0",
+  "healthCheckPath": "/alive",
+  "httpPort": 8081,
+  "addons": {
+    "localstorage": {}
+  },
+  "memoryLimit": 134217728,
+  "minBoxVersion": "8.0.0",
+  "tags": ["security", "test"]
+}

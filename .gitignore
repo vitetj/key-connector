@@ -1,0 +1,6 @@
+# Secrets et données runtime : ne jamais commiter
+*.pem
+kc_encryption_key
+*.db
+env
+!env.template

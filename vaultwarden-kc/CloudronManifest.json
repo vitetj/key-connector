@@ -1,0 +1,18 @@
+{
+  "manifestVersion": 2,
+  "id": "io.ixapack.vaultwardenkc",
+  "title": "Vaultwarden KC (TEST)",
+  "author": "Ixapack IT",
+  "description": "Vaultwarden fork acul021 (PR #7419) avec support Key Connector. TEST UNIQUEMENT, ne pas utiliser la base de prod.",
+  "tagline": "Vaultwarden + Key Connector (test)",
+  "version": "0.1.0",
+  "healthCheckPath": "/alive",
+  "httpPort": 8000,
+  "addons": {
+    "localstorage": {},
+    "sendmail": {}
+  },
+  "memoryLimit": 268435456,
+  "minBoxVersion": "8.0.0",
+  "tags": ["password", "test"]
+}
