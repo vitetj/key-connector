@@ -28,6 +28,14 @@
                 "packagerUrl": "https://github.com/vitetj/key-connector",
                 "website": "https://github.com/acul021/vaultwarden",
                 "changelog": "* 0.1.0 : premier packaging de test",
+                "contactEmail": "jeremie.vitet@ixapack.com",
+                "upstreamVersion": "testing",
+                "mediaLinks": [
+                    "https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/manifest/logo.png"
+                ],
+                "forumUrl": "https://github.com/vitetj/key-connector/issues",
+                "documentationUrl": "https://github.com/vitetj/key-connector#readme",
+                "postInstallMessage": "Éditez `/app/data/env` (File manager ou Terminal de l'app), remplacez toutes les valeurs `CHANGEME`, puis redémarrez l'app. Tant que ce n'est pas fait, l'app s'arrête volontairement. Voir le README du dépôt.",
                 "dockerImage": "ghcr.io/vitetj/vaultwarden-kc:0.1.0"
             },
             "creationDate": "Tue, 03 Nov 2026 18:46:12 GMT",
