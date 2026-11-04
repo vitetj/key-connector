@@ -30,8 +30,14 @@ https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/Cloud
 Installer ensuite les deux apps depuis l'App Store (par ex. `keyconnector-test` et `vaultkc`).
 Les deux apps démarrent puis s'arrêtent volontairement (garde-fou `CHANGEME`) : c'est normal.
 
-Pour sortir une nouvelle version : bumper `version` dans le `CloudronManifest.json` concerné et dans son
-`CloudronVersions.json` (nouvelle entrée avec `dockerImage` sur le nouveau tag), puis pousser sur `main`.
+**Mises à jour automatiques.** Le workflow `update-upstream.yml` tourne chaque nuit : si le fork
+`ghcr.io/acul021/vaultwarden:testing` ou `acul021/key-connector` a bougé, il épingle la nouvelle référence,
+bumpe la version, construit l'image et ajoute l'entrée dans `CloudronVersions.json`. Côté Cloudron, activer
+les mises à jour automatiques de l'app (Paramètres de l'app → Updates) ou cliquer sur « Update » à la main.
+Chaque version reste épinglée (commit ou digest), donc un retour arrière = réinstaller la version précédente.
+
+**Version manuelle** : `python3 -I scripts/release.py <dossier> --upstream <ref> --changelog "<texte>"`
+(`.` pour le Key Connector), puis push sur `main` : le workflow `build.yml` construit et publie l'image.
 
 <details><summary>Build manuel (optionnel, Cloudron CLI + Docker)</summary>
 
@@ -68,5 +74,6 @@ cloudron build --repository registry.ixapack.io/ixapack/vaultwarden-kc && cloudr
 - La clé de chiffrement du KC est générée dans `/app/data` → **elle part dans la même sauvegarde que la base**.
   Acceptable en test, pas en prod (clé à fournir depuis un secret store, ex. OpenBao).
 - Tag `testing` mouvant : épingler le digest dans `vaultwarden-kc/Dockerfile` une fois validé.
-- Le Key Connector est construit sur le commit `KC_COMMIT` de `Dockerfile` (HEAD de `main` au 03/11/2026) : à mettre à jour volontairement, jamais en suivant `main` à l'aveugle.
+- Le Key Connector est construit sur le commit `KC_COMMIT` de `Dockerfile`, le fork Vaultwarden sur un digest : le suivi nocturne
+  suit `main` et `testing` de acul021 sans revue. C'est acceptable en test, pas en prod.
 - Publication externe (App Proxy) : mode passthrough uniquement, pas de pré-authentification.

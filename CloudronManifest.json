@@ -5,11 +5,17 @@
   "author": "Ixapack IT",
   "description": "Key Connector communautaire (acul021) pour Vaultwarden. TEST UNIQUEMENT.",
   "tagline": "Key Connector Vaultwarden (test)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "healthCheckPath": "/alive",
   "httpPort": 8081,
   "addons": {
-    "localstorage": {}
+    "localstorage": {
+      "sqlite": {
+        "paths": [
+          "/app/data/keyconnector.db"
+        ]
+      }
+    }
   },
   "memoryLimit": 134217728,
   "minBoxVersion": "9.1.0",
@@ -22,7 +28,7 @@
   "packagerName": "Jeremie Vitet",
   "packagerUrl": "https://github.com/vitetj/key-connector",
   "website": "https://github.com/acul021/key-connector",
-  "changelog": "* 0.1.0 : premier packaging de test",
+  "changelog": "* 0.1.1 : sauvegarde SQLite cohérente (addon localstorage.sqlite), suivi upstream automatique",
   "contactEmail": "jeremie.vitet@ixapack.com",
   "upstreamVersion": "c52b886",
   "mediaLinks": [

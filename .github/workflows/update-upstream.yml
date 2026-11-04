@@ -1,0 +1,93 @@
+name: Suivi upstream (acul021)
+
+# Chaque nuit : si le fork Vaultwarden (tag testing) ou le Key Connector (main) a bougé,
+# épingle la nouvelle référence, bumpe la version, construit et publie l'image, et
+# ajoute l'entrée dans CloudronVersions.json. Cloudron voit alors une mise à jour.
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency: update-upstream
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Vérifier le fork Vaultwarden
+        id: vw
+        run: scripts/check-upstream.sh vaultwarden-kc >> "$GITHUB_OUTPUT"
+
+      - name: Vérifier le Key Connector
+        id: kc
+        run: scripts/check-upstream.sh key-connector >> "$GITHUB_OUTPUT"
+
+      - name: Nouvelle version Vaultwarden KC
+        id: vw_release
+        if: steps.vw.outputs.changed == 'true'
+        run: |
+          scripts/pin-upstream.sh vaultwarden-kc "${{ steps.vw.outputs.latest }}"
+          short=$(echo "${{ steps.vw.outputs.latest }}" | cut -c8-19)
+          v=$(python3 -I scripts/release.py vaultwarden-kc --upstream "testing@$short" \
+                --changelog "fork acul021/vaultwarden:testing, digest $short")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Nouvelle version Key Connector
+        id: kc_release
+        if: steps.kc.outputs.changed == 'true'
+        run: |
+          scripts/pin-upstream.sh key-connector "${{ steps.kc.outputs.latest }}"
+          short=$(echo "${{ steps.kc.outputs.latest }}" | cut -c1-7)
+          v=$(python3 -I scripts/release.py . --upstream "$short" \
+                --changelog "acul021/key-connector commit $short")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Build & push Vaultwarden KC
+        if: steps.vw.outputs.changed == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: vaultwarden-kc
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/vaultwarden-kc:${{ steps.vw_release.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/vaultwarden-kc:latest
+
+      - name: Build & push Key Connector
+        if: steps.kc.outputs.changed == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/key-connector:${{ steps.kc_release.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/key-connector:latest
+          cache-from: type=gha,scope=key-connector
+          cache-to: type=gha,mode=max,scope=key-connector
+
+      - name: Commit sur main
+        if: steps.vw.outputs.changed == 'true' || steps.kc.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          msg="Suivi upstream :"
+          [[ -n "${{ steps.vw_release.outputs.version }}" ]] && msg="$msg Vaultwarden KC ${{ steps.vw_release.outputs.version }}"
+          [[ -n "${{ steps.kc_release.outputs.version }}" ]] && msg="$msg Key Connector ${{ steps.kc_release.outputs.version }}"
+          git add -A && git commit -m "$msg" && git push origin main
