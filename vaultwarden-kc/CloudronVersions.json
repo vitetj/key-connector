@@ -229,6 +229,53 @@
             "creationDate": "Fri, 06 Nov 2026 05:19:03 GMT",
             "ts": "Fri, 06 Nov 2026 05:19:03 GMT",
             "publishState": "published"
+        },
+        "0.1.5": {
+            "manifest": {
+                "manifestVersion": 2,
+                "id": "io.ixapack.vaultwardenkc",
+                "title": "Vaultwarden KC (TEST)",
+                "author": "Ixapack IT",
+                "description": "Vaultwarden fork acul021 (PR #7419) avec support Key Connector. TEST UNIQUEMENT, ne pas utiliser la base de prod.",
+                "tagline": "Vaultwarden + Key Connector (test)",
+                "version": "0.1.5",
+                "healthCheckPath": "/alive",
+                "httpPort": 8000,
+                "addons": {
+                    "localstorage": {
+                        "sqlite": {
+                            "paths": [
+                                "/app/data/db.sqlite3"
+                            ]
+                        }
+                    },
+                    "sendmail": {}
+                },
+                "memoryLimit": 268435456,
+                "minBoxVersion": "9.1.0",
+                "tags": [
+                    "password",
+                    "test"
+                ],
+                "icon": "manifest/logo.png",
+                "iconUrl": "https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/manifest/logo.png",
+                "packagerName": "Jeremie Vitet",
+                "packagerUrl": "https://github.com/vitetj/key-connector",
+                "website": "https://github.com/acul021/vaultwarden",
+                "changelog": "* 0.1.5 : fork acul021/vaultwarden:testing, digest 36637fb509ea",
+                "contactEmail": "jeremie.vitet@ixapack.com",
+                "upstreamVersion": "testing@36637fb509ea",
+                "mediaLinks": [
+                    "https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/manifest/logo.png"
+                ],
+                "forumUrl": "https://github.com/vitetj/key-connector/issues",
+                "documentationUrl": "https://github.com/vitetj/key-connector#readme",
+                "postInstallMessage": "Éditez `/app/data/env` (File manager ou Terminal de l'app), remplacez toutes les valeurs `CHANGEME`, puis redémarrez l'app. Tant que ce n'est pas fait, l'app s'arrête volontairement. Voir le README du dépôt.",
+                "dockerImage": "ghcr.io/vitetj/vaultwarden-kc:0.1.5"
+            },
+            "creationDate": "Sat, 07 Nov 2026 05:18:07 GMT",
+            "ts": "Sat, 07 Nov 2026 05:18:07 GMT",
+            "publishState": "published"
         }
     }
 }
