@@ -5,7 +5,7 @@
   "author": "Ixapack IT",
   "description": "Vaultwarden fork acul021 (PR #7419) avec support Key Connector. TEST UNIQUEMENT, ne pas utiliser la base de prod.",
   "tagline": "Vaultwarden + Key Connector (test)",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "healthCheckPath": "/alive",
   "httpPort": 8000,
   "addons": {
@@ -29,9 +29,9 @@
   "packagerName": "Jeremie Vitet",
   "packagerUrl": "https://github.com/vitetj/key-connector",
   "website": "https://github.com/acul021/vaultwarden",
-  "changelog": "* 0.1.7 : fork acul021/vaultwarden:testing, digest 36637fb509ea",
+  "changelog": "* 0.1.8 : fork acul021/vaultwarden:testing, digest f12f487f23c6",
   "contactEmail": "jeremie.vitet@ixapack.com",
-  "upstreamVersion": "testing@36637fb509ea",
+  "upstreamVersion": "testing@f12f487f23c6",
   "mediaLinks": [
     "https://raw.githubusercontent.com/vitetj/key-connector/main/vaultwarden-kc/manifest/logo.png"
   ],
