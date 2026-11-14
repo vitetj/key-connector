@@ -1,5 +1,5 @@
-# Build depuis les sources, commit épinglé (03/11/2026)
-ARG KC_COMMIT=c52b886f6f3bf9a975b0b99a5896a163ede13b8a
+# Build depuis les sources, commit épinglé (2026-11-14)
+ARG KC_COMMIT=82887e2d1b309b079f0639a44465b76bbfecc524
 
 FROM rust:1-slim AS build
 ARG KC_COMMIT
